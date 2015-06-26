@@ -1,0 +1,94 @@
+		<!-- Header -->
+			<div id="header" class="skel-layers-fixed">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image avatar48"><img src="" alt="" /></span>
+							
+     						<h1 id="title">{{datas.name}}</h1>
+							<p>{{datas.dept}}</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="/#/dashboard" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
+								<li><a href="#" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Edit Profile</span></a></li>
+								<li><a href="/#/logout" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Logout</span></a></li>
+</ul>
+						</nav>
+						
+				</div>
+				
+				
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="top" class="one dark cover">
+						<div class="container">
+                			<header>
+								<h2 class="alt">
+                                </h2>
+							</header>
+							Click the button below to add a new course
+							<footer>
+                                <Button class="btn" ng-click="add()">Create</Button>
+							</footer>
+
+						</div>
+					</section>
+					
+				<section id="portfolio" class="two">
+				            
+				
+                          		<div class="container">
+							  <table class="table table-responsive">
+   <thead>
+       <tr>
+          <th>#</th>
+           <th>
+               Course Title
+           </th>
+           <th>
+               Course Code
+           </th>
+           <th>
+               Action
+           </th>
+       </tr>
+   </thead>
+    <tbody>
+        <tr ng-repeat=" data in courses">
+           <td>{{$index +1}}</td>
+           <td>{{data.title}}</td>
+           <td><b>{{data.course_code}}</b></td>
+           <td><button class="btn btn-success" ng-click="nex(data._id)">View & Upload</button></td>
+            
+        </tr>
+    </tbody>
+</table>
+
+				</section>
+
+        
+			
+			
+			</div>
+
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,84 @@
+		<!-- Header -->
+			<div id="header" class="skel-layers-fixed">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+     						<h1 id="title">{{dept}}</h1>
+							<p>{{level}} Level</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+											<li><a href="/#/department/courses" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
+								<li><a ng-href="/#/library/{{dept}}/500" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">500 Level</span></a></li>
+			<li><a ng-href="/#/library/{{dept}}/400" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">400 Level</span></a></li>
+			<li><a ng-href="/#/library/{{dept}}/300" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">300 Level</span></a></li>
+			<li><a ng-href="/#/library/{{dept}}/200" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">200 Level</span></a></li>
+			<li><a ng-href="/#/library/{{dept}}/100" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">100 Level</span></a></li>
+			
+</ul>
+						</nav>
+						
+				</div>
+				
+				
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+				<section id="portfolio" class="two">
+				            
+				
+                          		<div class="container">
+							  <table class="table table-responsive">
+   <thead>
+       <tr>
+          <th>
+          # 
+       </th>
+           <th>
+               Course Title
+           </th>
+           <th>
+               Course Code
+           </th>
+           <th>
+               Action
+           </th>
+       </tr>
+   </thead>
+    <tbody>
+        <tr ng-repeat=" data in courses">
+           <td>{{$index +1}}</td>
+           <td>{{data.title}}</td>
+           <td><b>{{data.course_code}}</b></td>
+           <td><button class="btn btn-success" ng-click="nx(data._id)">View</button></td>
+            
+        </tr>
+    </tbody>
+</table>
+
+				</section>
+
+        
+			
+			
+			</div>
+
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  

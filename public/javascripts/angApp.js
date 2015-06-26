@@ -31,13 +31,18 @@ app.config(['$routeProvider', function($routeProvider){
     });
     //$locationProvider.html5mode({ enabled: true, requireBase: true });
 }]);
-
+app.controller('lgCtrl', function($cookieStore, $location){
+    $cookieStore.remove('staff');
+    $location.path('/');
+    
+});
 app.controller('books', function($scope, $http, $routeParams){
     $http.get('/material/'+$routeParams.dat).success(function(dat){
    $scope.books = dat;     
         $scope.d = dat[0];
         console.log($scope.d);
         $scope.dept = $routeParams.dept;
+        
         $scope.val = function(dat){
           $http.get('/pdf/'+dat, {responseType: 'arraybuffer'})
        .success(function (data) {

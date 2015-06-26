@@ -42,6 +42,14 @@ course.find({'level':req.params.level, 'department':req.params.dept}, function(e
 });
 
 
+router.get('/library/:dept', function(req, res){
+book.find({'department':req.params.dept}, function(err, data){
+    if(err){return res.send(500);}
+    return res.json(200, data);
+}); 
+});
+
+
 router.get('/courses/:id', function(req, res){
     course.find({l_id:req.id}, function(err, data){
         if(err){
@@ -172,6 +180,37 @@ if (err) throw err;
       	return res.json(200, data);
       });
       });
+
+router.post('/general/material', multipartMiddleware,function(req, res){
+    var data = req.course;
+    var tm = req.files.file.name;
+    //console.log(s);
+    fs.readFile(req.files.file.path, function (err,data) {
+    console.log(data);
+        fs.writeFile('./public/pdf/'+tm, data, function(err){
+        console.log(err);
+    });
+     });
+console.log("Upload completed!");
+    var tmm = tm.split(".");
+   
+    var books =new book({
+        url: tm,
+        title:tmm[0],
+        department: data.department,
+        course_name:"General",
+        view_type:"general"
+    });
+    
+    books.save(function(err, data){
+        if(err){
+            return res.send(500);
+            
+        }
+        console.log(data);
+        return res.json(200, data);
+    });
+});
 
 
 module.exports = router;

@@ -49,7 +49,8 @@ var Book = new Schema({
     title:String,
     url:String,
     department:String,
-    course_name:String
+    course_name:String,
+    view_type:String
    
 });
 var Courses = mongoose.model('Course', Course);

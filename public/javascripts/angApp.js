@@ -28,14 +28,41 @@ app.config(['$routeProvider', function($routeProvider){
         templateUrl:'departments.html'
     }).when('/logout',{
         controller:'lgCtrl'
+    }).when('/general',{
+        controller:'flCtrl',
+        templateUrl: 'generalupload.html'
+    }).when('/library/:dept',{
+        controller:'bk',
+        templateUrl:'book.html'
     });
     //$locationProvider.html5mode({ enabled: true, requireBase: true });
 }]);
+
+
 app.controller('lgCtrl', function($cookieStore, $location){
     $cookieStore.remove('staff');
     $location.path('/');
     
 });
+
+app.controller('bk', function($scope, $http, $routeParams){
+    $http.get('/material/'+$routeParams.dept).success(function(dat){
+   $scope.books = dat;     
+        $scope.d = dat[0];
+        console.log($scope.d);
+        $scope.dept = $routeParams.dept;
+        
+        $scope.val = function(dat){
+          $http.get('/pdf/'+dat, {responseType: 'arraybuffer'})
+       .success(function (data) {
+           var file = new Blob([data], {type: 'application/pdf'});
+           var fileURL = URL.createObjectURL(file);
+           window.open(fileURL);
+    });  
+        };
+    });
+});
+
 app.controller('books', function($scope, $http, $routeParams){
     $http.get('/material/'+$routeParams.dat).success(function(dat){
    $scope.books = dat;     
@@ -93,9 +120,7 @@ app.controller('addCourseCtrl', function($scope, $http, $location, $cookieStore)
         });
     });
 	app.controller('loginCtrl', function($scope, $http, $location, $cookieStore){
-        if($cookieStore.get('staff')){
-            $location.path('/dashboard');
-        }
+        
 		$scope.error = '';
         $scope.hides = true;
 		$scope.sign_in = function(datas){
@@ -140,6 +165,37 @@ app.controller('fullCtrl', ['$scope', 'Upload','$routeParams','$location', funct
                 var file = files[i];
                 Upload.upload({
                     url:'/course/material/'+$scope.id,
+                    file: file
+                }).progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                }).success(function (data, status, headers, config) {
+                   
+                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+    $location.path('/dashboard');
+                });
+            }
+        }
+    };
+   
+}]);
+
+
+app.controller('flCtrl', ['$scope', 'Upload','$routeParams','$location', function ($scope, Upload, $routeParams, $location) {
+    $scope.id = $routeParams.id;
+    
+    
+    $scope.$watch('files', function () {
+        $scope.upload($scope.files);
+    });
+   
+
+    $scope.upload = function (files) {
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                    url:'/general/material/'+$scope.id,
                     file: file
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
